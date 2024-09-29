@@ -1,14 +1,13 @@
 (async ()=>{
   let btn = document.getElementById("btn-submit");
   let wrap = document.getElementById("wrapper");
-  let config = await get_config("./config.json")
   btn.addEventListener("click", () => {
     btn.classList.toggle("invisible");
     showQuote(config);
   });
 })();
 
-function showQuote(config) {
+function showQuote() {
   const url = 'https://animechan.io/api/v1/quotes/random';
   // const url = 'https://anime-quotes2.p.rapidapi.com/api/random';
   // const host = config["applications"]["anime_quotes"]["API_KEYS"][0]["host_name"]
