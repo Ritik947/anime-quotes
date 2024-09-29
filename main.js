@@ -3,7 +3,7 @@
   let wrap = document.getElementById("wrapper");
   btn.addEventListener("click", () => {
     btn.classList.toggle("invisible");
-    showQuote(config);
+    showQuote();
   });
 })();
 
