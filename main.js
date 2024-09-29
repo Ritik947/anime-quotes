@@ -9,7 +9,8 @@
 async function showQuote() {
   try {
     const url = 'https://animechan.io/api/v1/quotes/random';
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const options = {cache: "no-cache"}
+    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, options);
     if (response.status != 200) {
       console.log("Encountered an error \n Code " + response.status);
       return;
