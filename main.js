@@ -17,16 +17,21 @@
 }) ();
 
 async function fetchQuote() {
+  try {
     const url = 'https://animechan.io/api/v1/quotes/random';
     const options = {cache: "no-cache"}
     const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, options);
-    if (response.status != 200) {
-      console.log("Encountered an error \n Code " + response.status);
-      return;
-    }
     const data = await response.json();
+    if (data.status != 200){   
+      message = JSON.parse(data.contents).message;
+      throw Error("Unable to fetch data from API \nReason:" + message);
+    }  
     const quote_data = JSON.parse(data.contents).data;
     return  quote_data;
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
 
 async function showQuote() {
