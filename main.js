@@ -21,7 +21,6 @@ function showQuote(config) {
   //     'x-rapidapi-host': host
   //   }
   // };
-
   fetch(url).then(function (res) {
     if (res.status != 200) {
       console.log("Encountered an error \n Code " + res.status);
