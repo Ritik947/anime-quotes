@@ -1,13 +1,22 @@
 (async () => {
-  let btn = document.getElementById("btn-submit");
-  btn.addEventListener("click", () => {
-    btn.classList.toggle("invisible");
-    showQuote();
-  });
+  try {
+    let btn = document.getElementById("btn-submit");
+    let next_btn = document.getElementById("next-quote")
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("invisible");
+      next_btn.classList.toggle("invisible");
+      showQuote();
+    });
+    next_btn.addEventListener("click", () => {
+      reloadQuote();
+    });
+  }
+  catch (error) {
+    console.error(error)
+  }
 }) ();
 
-async function showQuote() {
-  try {
+async function fetchQuote() {
     const url = 'https://animechan.io/api/v1/quotes/random';
     const options = {cache: "no-cache"}
     const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, options);
@@ -17,7 +26,12 @@ async function showQuote() {
     }
     const data = await response.json();
     const quote_data = JSON.parse(data.contents).data;
-    let wrap = document.getElementById("wrapper");
+    return  quote_data;
+}
+
+async function showQuote() {
+    const quote_data = await fetchQuote();
+    let wrap = document.getElementById("wrapper")
     let box = document.createElement("div");
     let source = document.createElement("div");
     source.id = "source";
@@ -26,9 +40,6 @@ async function showQuote() {
     box.innerText = quote_data.content;
     wrap.appendChild(source);
     source.innerHTML = quote_data.character.name + "<br/>(" + quote_data.anime.name + ")";
-  } catch (error) {
-    console.error(error) // from creation or business logic
-  }
   // const url = 'https://anime-quotes2.p.rapidapi.com/api/random';
   // const host = config["applications"]["anime_quotes"]["API_KEYS"][0]["host_name"]
   // const api_key = config["applications"]["anime_quotes"]["API_KEYS"][0]["api_key"]
@@ -40,6 +51,14 @@ async function showQuote() {
   //     'x-rapidapi-host': host
   //   }
   // };
+}
+
+async function reloadQuote() {
+  const quote_data = await fetchQuote();
+  let box = document.getElementById("quote");
+  let source = document.getElementById("source");
+  box.innerText = quote_data.conten;
+  source.innerHTML = quote_data.character.name + "<br/>(" + quote_data.anime.name + ")";
 }
 
 // async function get_config(request) {
