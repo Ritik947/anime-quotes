@@ -57,7 +57,7 @@ async function reloadQuote() {
   const quote_data = await fetchQuote();
   let box = document.getElementById("quote");
   let source = document.getElementById("source");
-  box.innerText = quote_data.conten;
+  box.innerText = quote_data.content;
   source.innerHTML = quote_data.character.name + "<br/>(" + quote_data.anime.name + ")";
 }
 
